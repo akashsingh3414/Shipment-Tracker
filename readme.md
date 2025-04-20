@@ -190,9 +190,12 @@ Once the server and MongoDB are running:
 - TypeScript
 - Vite (for development and building)
 
-## Future Enhancements
+### Why MongoDB?
 
-- Docker support for containerization
-- Swagger/OpenAPI integration for API documentation
-- CI/CD pipeline for automated testing and deployment
-- User authentication and authorization
+MongoDB is chosen for this project due to its flexibility, performance, and seamless integration with Node.js and TypeScript. Key advantages include:
+
+- **Schema Flexibility**: MongoDB allows dynamic and evolving data structures, which is useful when shipment records may vary or expand over time.
+- **JSON-Like Documents**: Data is stored in a format that closely mirrors JavaScript objects, making development faster and cleaner in a Node.js environment.
+- **High Performance**: Optimized for fast reads and writes, which is essential for real-time shipment status updates.
+- **Scalability**: Easily handles large datasets and supports horizontal scaling through sharding.
+- **Mongoose Integration**: Using Mongoose provides a structured, type-safe layer on top of MongoDB for better data modeling and validation.
