@@ -2,6 +2,41 @@
 
 An API for tracking and updating shipment statuses, built with Node.js, TypeScript, Express, and MongoDB using Mongoose.
 
+## Project Structure
+
+```
+shipment-tracker/
+│
+├── backend/                     # Backend folder (Node.js + TypeScript + Mongoose)
+│   ├── src/
+│   │   ├── controllers/         # Logic for handling API requests
+│   │   ├── models/              # Mongoose schemas and models
+│   │   ├── routes/              # Express route definitions
+│   │   ├── seed.ts              # Script to populate DB with sample data
+│   │   └── index.ts             # Entry point of the app
+│   │
+│   ├── .env                     # Environment variables
+│   ├── .gitignore               # Gitignore file for backend
+│   ├── tsconfig.json            # TypeScript configuration
+│   └── package.json             # Backend dependencies and scripts
+│
+├── frontend/                    # Frontend folder (React using Vite)
+│   ├── src/
+│   │   ├── components/          # Reusable UI components
+│   │   ├── pages/               # Pages
+│   │   ├── App.tsx              # Main App component
+│   │   ├── index.css            # Main CSS file
+│   │   ├── types.ts             # Defines type of data
+│   │   └── main.tsx             # Entry point
+│   │
+│   ├── tsconfig.json            # TypeScript config
+│   ├── .gitignore               # Gitignore file for frontend
+│   ├── vite.config.ts           # Vite configuration
+│   └── package.json             # Frontend dependencies and scripts
+│
+└── README.md                    # Root project README
+```
+
 ## Project Setup
 
 Follow the steps below to set up and run the Shipment Tracker API locally.
@@ -13,42 +48,37 @@ git clone https://github.com/akashsingh3414/Shipment-Tracker.git
 cd Shipment-Tracker
 ```
 
-### 2. Install Dependencies
+### 2. Backend Setup
 
-Make sure you have Node.js and npm installed on your machine. Then, install the project dependencies:
+#### Install Dependencies
+
+Navigate to the backend directory:
 
 ```bash
+cd backend
 npm install
 ```
 
-### 3. Set Up TypeScript
+#### Configure TypeScript
 
-Install TypeScript globally (if not already installed):
+TypeScript should be installed as a project dependency in the backend's package.json, but you can also install it globally if needed:
 
 ```bash
 npm install -g typescript
 ```
 
-You can compile the code (if needed) using:
-
-```bash
-tsc
-```
-
-For development, you're likely using `ts-node-dev`, so you can just run the dev script (more on that below).
-
-### 4. Configure MongoDB
+#### Set Up MongoDB
 
 Ensure MongoDB is installed and running locally or use a remote MongoDB URI.
 
-You can install MongoDB locally from:
-https://www.mongodb.com/try/download/community
+* Local installation: https://www.mongodb.com/try/download/community
+* Cloud option: [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
 
-Or use a cloud-hosted MongoDB database like MongoDB Atlas.
+#### Create a `.env` File
 
-### 5. Create a `.env` File
+Create a `.env` file in the backend directory:
 
-Create a `.env` file in the root of the project and add the following:
+Add the following configuration:
 
 ```env
 PORT=3000
@@ -57,32 +87,58 @@ MONGODB_URI=mongodb://localhost:27017/shipment-tracker
 
 Replace the `MONGODB_URI` with your own connection string if using MongoDB Atlas or a custom DB name.
 
-### 6. Seed the Database
+#### Seed the Database
+Navigate to backend/src/ directory and run the seed script to populate the database with initial data:
 
-Run the seed script to populate the database with initial data:
+```bash
+cd src
+npx ts-node seed.ts
+```
+
+or if configured in package.json:
 
 ```bash
 npm run seed
 ```
 
-This script connects to MongoDB and inserts sample shipment data you can use for testing.
+#### Start the Backend Server
 
-### 7. Start the Server
+From the backend/src/ directory:
 
-To start the server in development mode with auto-reloading:
+```bash
+# Development mode with auto-reloading
+npm run dev
+
+# OR for production build
+npm run build
+npm start
+```
+
+The API will be available at: `http://localhost:3000`
+
+### 3. Frontend Setup
+
+#### Install Dependencies
+
+Navigate to the frontend directory from the project root:
+
+```bash
+cd frontend
+npm install
+```
+
+#### Configure TypeScript
+
+TypeScript should be installed as a project dependency in the frontend's package.json.
+
+#### Start the Frontend Development Server
+Navigate to frontend/src/ directory and run the script:
 
 ```bash
 npm run dev
 ```
 
-For a production build:
-
-```bash
-npm run build
-npm start
-```
-
-Once running, the API will be available at: `http://localhost:3000`
+The frontend will typically be available at: `http://localhost:5173` (if using Vite)
 
 ## API Documentation
 
@@ -97,6 +153,11 @@ The documentation includes:
 * Error formats
 * Data structure descriptions
 
+## Main API Endpoints
+
+* `GET /shipments/:shipmentId/track` - View tracking information for a specific shipment
+* `POST /shipments/:shipmentId/status` - Update the status of a shipment
+
 ## Prerequisites
 
 Make sure the following are installed before running the project:
@@ -104,9 +165,8 @@ Make sure the following are installed before running the project:
 * Node.js (v14 or higher)
 * npm
 * MongoDB
-* TypeScript (`npm install -g typescript`)
-* ts-node (`npm install -g ts-node`, if using manually)
-* (Optional) Postman for API testing
+* TypeScript (installed globally or as a project dependency)
+* Postman (optional, for API testing)
 
 ## Testing the API
 
@@ -114,41 +174,25 @@ Once the server and MongoDB are running:
 
 * Use `GET /shipments/:shipmentId/track` to view tracking info
 * Use `POST /shipments/:shipmentId/status` to update shipment status
-* Use Postman or any other API testing tool to interact with the endpoints.
+* Use Postman or any other API testing tool to interact with the endpoints
 
-## Suggested Project Structure
+## Additional Information
 
-```
-shipment-tracker/
-│
-├── backend/                     # Backend folder (Node.js + TypeScript + Mongoose)
-│   ├── src/
-│   │   ├── controllers/         # Logic for handling API requests
-│   │   ├── models/              # Mongoose schemas and models
-│   │   ├── routes/              # Express route definitions
-│   │   ├── seed.ts              # Script to populate DB with sample data
-│   │   └── index.ts             # Entry point of the app
-│   │
-│   ├── .env                     # Environment variables
-|   ├── .gitignore               # Gitignore file for backend
-│   ├── tsconfig.json            # TypeScript configuration
-│   └── package.json             # Backend dependencies and scripts
-│
-├── frontend/                    # Frontend folder (React or Next.js app)
-│   ├── src/
-│   │   ├── components/          # Reusable UI components
-│   │   ├── pages/               # Pages
-│   │   ├── App.tsx              # Main App component
-|   |   ├── index.css
-|   |   ├── types.ts             # Defines type of data
-│   │   └── main.tsx             # Entry point
-│   │
-│   ├── tsconfig.json            # TypeScript config
-|   ├── .gitignore               # Gitignore file for frontend
-│   ├── vite.config.ts           # Based on the framework
-│   └── package.json             # Frontend dependencies and scripts
-│
-└── README.md                    # Root project README
-```
+### Backend Technologies
+- Node.js
+- Express.js
+- TypeScript
+- MongoDB with Mongoose
+- dotenv for environment variables
 
-Let me know if you'd like to add Docker support, Swagger/OpenAPI integration, or deployment steps!
+### Frontend Technologies
+- React.js
+- TypeScript
+- Vite (for development and building)
+
+## Future Enhancements
+
+- Docker support for containerization
+- Swagger/OpenAPI integration for API documentation
+- CI/CD pipeline for automated testing and deployment
+- User authentication and authorization
