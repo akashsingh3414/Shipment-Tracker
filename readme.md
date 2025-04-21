@@ -87,19 +87,37 @@ MONGODB_URI=mongodb://localhost:27017/shipment-tracker
 
 Replace the `MONGODB_URI` with your own connection string if using MongoDB Atlas or a custom DB name.
 
-#### Seed the Database
-Navigate to backend/src/ directory and run the seed script to populate the database with initial data:
+#### Database Seeding Guide
+
+##### Step 1: Navigate to the Backend Directory
 
 ```bash
-cd src
+cd backend/src
+```
+
+##### Step 2: Run the Seed Script
+
+Use one of the following commands to run the seed script:
+
+###### Option 1: Directly using ts-node
+
+```bash
 npx ts-node seed.ts
 ```
 
-or if configured in package.json:
+###### Option 2: Using npm script (if configured in package.json)
 
 ```bash
 npm run seed
 ```
+
+##### ShipmentId Note
+
+After seeding:
+
+Check the console output to **note down the generated `shipmentId`** from the **`Shipment` object’s `_id`** field  
+  
+You can use this shipmentId to **track the shipment status** in your application or while testing endpoints.
 
 #### Start the Backend Server
 
